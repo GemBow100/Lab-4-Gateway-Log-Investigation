@@ -98,12 +98,6 @@ def generate_invalid_user_report():
 
 
 def generate_source_ip_log(ip_address):
-    """Produces a plain text .log file containing all records from a source log
-    file that contain a specified source IP address.
-
-    Args:
-        ip_address (str): Source IP address
-    """
     ip_address_counts={}
     # Get all records that have the specified sourec IP address
     with open('./downloads/gateway.txt', 'r') as f:
