@@ -1,0 +1,87 @@
+"""
+Description:
+ Generates various reports from a gateway log file.
+
+Usage:
+ python log_investigation.py log_path
+
+Parameters:
+ log_path = Path of the gateway log file
+"""
+import log_analysis_lib
+import re
+
+# Get the log file path from the command line
+# Because this is outside of any function, log_path is a global variable
+log_path = log_analysis_lib.get_file_path_from_cmd_line()
+
+def main():
+    # Determine how much traffic is on each port
+    port_traffic = tally_port_traffic()
+
+
+    # Per step 9, generate reports for ports that have 100 or more records
+    for port, count in port_traffic.items():
+        if count >= 100:
+            generate_port_traffic_report(port)
+
+    # Generate report of invalid user login attempts
+    generate_invalid_user_report()
+
+    # Generate log of records from source IP 220.195.35.40
+    generate_source_ip_log('220.195.35.40')
+
+def tally_port_traffic():
+    
+# open the folder inorder to extract the data in read mode.
+    with open('./downloads/gateway.txt', 'r') as f:
+        gateway = f.readlines()
+ #Looking for ports in SRC, DST and LEN
+    pattern = ('SRC=(.*?) DST=(.*?) LEN=(.*?)')
+    match_list = {}
+    for line in gateway:
+        print(line)
+        for match in re.finditer(pattern, line, re.S):
+            match_ports =match.group()
+            match_list.append(match_ports)
+
+        for _match in match_ports:
+            print(_match)
+
+    return {}
+
+def generate_port_traffic_report(port_number):
+    """Produces a CSV report of all network traffic in a log file for a specified 
+    destination port number.
+
+    Args:
+        port_number (str or int): Destination port number
+    """
+    # TODO: Complete function body per step 8
+    # Get data from records that contain the specified destination port
+    # Generate the CSV report
+    return
+
+def generate_invalid_user_report():
+    """Produces a CSV report of all network traffic in a log file that show
+    an attempt to login as an invalid user.
+    """
+    # TODO: Complete function body per step 10
+    # Get data from records that show attempted invalid user login
+    # Generate the CSV report
+    return
+
+def generate_source_ip_log(ip_address):
+    """Produces a plain text .log file containing all records from a source log
+    file that contain a specified source IP address.
+
+    Args:
+        ip_address (str): Source IP address
+    """
+    # TODO: Complete function body per step 11
+    # Get all records that have the specified sourec IP address
+    # Save all records to a plain text .log file
+    return
+
+if __name__ == '__main__':
+    main()
