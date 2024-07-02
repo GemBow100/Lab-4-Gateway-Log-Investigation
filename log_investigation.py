@@ -37,10 +37,6 @@ def main():
         if destination_port == destination_port:
             log_analysis_lib = 'gateway.txt'
             destination_port = {}
-
-
-
-
     # Generate report of invalid user login attempts
     generate_invalid_user_report()
 
